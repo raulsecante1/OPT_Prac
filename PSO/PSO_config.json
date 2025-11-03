@@ -1,7 +1,6 @@
 {
-  "parameter_sets": [
-    {
-      "set_name": "config_2_40_1",
+  "parameter_sets": {
+    "config_2_40_1": {
       "description": "PSO parameters for 2D problem with 40 fitness evaluations",
       "pso_params": {
         "problem_dimension": 2,
@@ -16,8 +15,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_2_40_2",
+    "config_2_40_2": {
       "description": "PSO parameters for 2D problem with 40 fitness evaluations",
       "pso_params": {
         "problem_dimension": 2,
@@ -32,8 +30,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_2_4000_1",
+    "config_2_4000_1": {
       "description": "PSO parameters for 2D problem with 4000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 2,
@@ -48,8 +45,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_2_4000_2",
+    "config_2_4000_2": {
       "description": "PSO parameters for 2D problem with 4000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 2,
@@ -64,8 +60,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_5_1000_1",
+    "config_5_1000_1": {
       "description": "PSO parameters for 5D problem with 1000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 5,
@@ -80,8 +75,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_5_1000_2",
+    "config_5_1000_2": {
       "description": "PSO parameters for 5D problem with 1000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 5,
@@ -96,8 +90,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_5_10000_1",
+    "config_5_10000_1": {
       "description": "PSO parameters for 5D problem with 10000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 5,
@@ -112,8 +105,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_5_10000_2",
+    "config_5_10000_2": {
       "description": "PSO parameters for 5D problem with 10000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 5,
@@ -128,8 +120,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_10_2000_1",
+    "config_10_2000_1": {
       "description": "PSO parameters for 10D problem with 2000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 10,
@@ -144,8 +135,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_10_2000_2",
+    "config_10_2000_2": {
       "description": "PSO parameters for 10D problem with 2000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 10,
@@ -160,8 +150,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_10_20000_1",
+    "config_10_20000_1": {
       "description": "PSO parameters for 10D problem with 20000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 10,
@@ -176,8 +165,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_20_40000_1",
+    "config_20_40000_1": {
       "description": "PSO parameters for 20D problem with 40000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 20,
@@ -192,8 +180,7 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_20_400000_1",
+    "config_20_400000_1": {
       "description": "PSO parameters for 20D problem with 400000 fitness evaluations",
       "pso_params": {
         "problem_dimension": 20,
@@ -208,12 +195,11 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_20_400000_2",
+    "config_20_400000_2": {
       "description": "PSO parameters for 20D problem with 400000 fitness evaluations",
       "pso_params": {
-        "problem dimension": 20,
-        "fitness evaluations": 400000,
+        "problem_dimension": 20,
+        "fitness_evaluations": 400000,
         "omega": -0.4736,
         "phi_p": -0.9700,
         "phi_g": 3.7904,
@@ -224,12 +210,11 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_20_400000_2",
+    "config_20_400000_3": {
       "description": "PSO parameters for 20D problem with 400000 fitness evaluations",
       "pso_params": {
-        "problem dimension": 20,
-        "fitness evaluations": 400000,
+        "problem_dimension": 20,
+        "fitness_evaluations": 400000,
         "omega": -0.3499,
         "phi_p": -0.0513,
         "phi_g": 4.9087,
@@ -240,12 +225,11 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_30_600000_1",
+    "config_30_600000_1": {
       "description": "PSO parameters for 30D problem with 600000 fitness evaluations",
       "pso_params": {
-        "problem dimension": 30,
-        "fitness evaluations": 600000,
+        "problem_dimension": 30,
+        "fitness_evaluations": 600000,
         "omega": -0.6031,
         "phi_p": -0.6485,
         "phi_g": 2.6475,
@@ -256,12 +240,11 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_50_100000_1",
+    "config_50_100000_1": {
       "description": "PSO parameters for 50D problem with 100000 fitness evaluations",
       "pso_params": {
-        "problem dimension": 50,
-        "fitness evaluations": 100000,
+        "problem_dimension": 50,
+        "fitness_evaluations": 100000,
         "omega": -0.2256,
         "phi_p": -0.1564,
         "phi_g": 3.8876,
@@ -272,12 +255,11 @@
         "exploration_level": "NA"
       }
     },
-    {
-      "set_name": "config_100_200000_1",
+    "config_100_200000_1": {
       "description": "PSO parameters for 100D problem with 200000 fitness evaluations",
       "pso_params": {
-        "problem dimension": 100,
-        "fitness evaluations": 200000,
+        "problem_dimension": 100,
+        "fitness_evaluations": 200000,
         "omega": -0.2089,
         "phi_p": -0.0787,
         "phi_g": 3.7637,
@@ -288,5 +270,5 @@
         "exploration_level": "NA"
       }
     }
-  ]
+  }
 }

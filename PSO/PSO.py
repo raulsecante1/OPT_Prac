@@ -3,7 +3,7 @@
 
 import random
 import numpy
-import PSO_config
+import json
 
 inicial = []  # corresponde inicio parameters for the function
 
@@ -26,8 +26,7 @@ table = [[2, 40, 25, 0.3925, 2.5586, 1.3358],
          [10, 2000, 204, -0.2134, -0.3344, 2.3259],
          [10, 20000, 53, -0.3488, -0.2476, 4.8976],
          [20, 40000, 69, -0.4438, -0.2699, 3.3950],
-         [20, 400000, 149, -0.3236, -0.1136, 3.9789],
-         []]
+         [20, 400000, 149, -0.3236, -0.1136, 3.9789]]
 
 
 def func():
@@ -45,31 +44,38 @@ def main_PSO():
     The main part of the PSO optimization
     '''
 
-    iteration = iterations["Academic_Toy_Problems"]  # how many iterations for one PSO run
-    
+    with open('parameters.json', 'r') as file:
+       data = json.load(file)["parameter_sets"]
+
+    #iteration = iterations["Academic_Toy_Problems"]  # how many iterations for one PSO run
+
     r_p = random.uniform(0,1)
     r_g = random.uniform(0,1)
 
-    inertia_omiga = 1
-    cognitive_component_phip = 1
-    social_component_phig = 1
-    best_loc_self = inicial
+    swarm_size = data["swarm_size"]
+    inertia_omega = data["omega"]
+    cognitive_component_phip = data["phi_p"]
+    social_component_phig = data["phi_g"]
+    iteration = data["fitness_evaluations"]/swarm_size
+    
+    best_loc_self = [inicial for _ in range(swarm_size)]
     best_loc_social = inicial
 
     k = random.uniform(0.1, 0.2)
     upper_bound = 1
     lower_bound = -1
-    velocity =  random.uniform(-k * (upper_bound - lower_bound), + k * (upper_bound - lower_bound))
-    currently_position = inicial
+    velocity =  [random.uniform(-k * (upper_bound - lower_bound), + k * (upper_bound - lower_bound)) for _ in range(swarm_size)]
+    currently_position = [inicial for _ in range(swarm_size)]
 
-    for i in range(iteration):
-        velocity = velocity * inertia_omiga + cognitive_component_phip * r_p * (best_loc_self - currently_position) + social_component_phig * r_g * (best_loc_social - currently_position)
-        currently_position = numpy.array(currently_position) + numpy.array(velocity)
-        if func(currently_position) < func(best_loc_self):
-            best_loc_self = currently_position
-        if func(currently_position) < func(best_loc_social):
-            best_loc_social = currently_position
-    
-    return (currently_position, best_loc_social, best_loc_self, func(best_loc_social))
+    for _ in range(iteration):
+        for ind in range(swarm_size):
+            velocity[ind] = velocity[ind] * inertia_omega + cognitive_component_phip * r_p * (best_loc_self[ind] - currently_position[ind]) + social_component_phig * r_g * (best_loc_social[ind] - currently_position[ind])
+            currently_position[ind] = numpy.array(currently_position[ind]) + numpy.array(velocity[ind])
+            if func(currently_position[ind]) < func(best_loc_self[ind]):
+                best_loc_self[ind] = currently_position[ind]
+            if func(currently_position[ind]) < func(best_loc_social):
+                best_loc_social = currently_position[ind]
+
+    return 0
         
 
