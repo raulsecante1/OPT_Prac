@@ -45,7 +45,9 @@ def main_PSO():
     '''
 
     with open('parameters.json', 'r') as file:
-       data = json.load(file)["parameter_sets"]
+       raw_data = json.load(file)["parameter_sets"]["config_2_40_1"]
+       data = raw_data["pso_params"]
+
 
     #iteration = iterations["Academic_Toy_Problems"]  # how many iterations for one PSO run
 
