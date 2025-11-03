@@ -52,6 +52,7 @@ def main_PSO():
     r_p = random.uniform(0,1)
     r_g = random.uniform(0,1)
 
+    #S, omiga, phi_p, phi_g, iteration
     swarm_size = data["swarm_size"]
     inertia_omega = data["omega"]
     cognitive_component_phip = data["phi_p"]
@@ -69,7 +70,7 @@ def main_PSO():
 
     for _ in range(iteration):
         for ind in range(swarm_size):
-            velocity[ind] = velocity[ind] * inertia_omega + cognitive_component_phip * r_p * (best_loc_self[ind] - currently_position[ind]) + social_component_phig * r_g * (best_loc_social[ind] - currently_position[ind])
+            velocity[ind] = velocity[ind] * inertia_omega + cognitive_component_phip * r_p * (best_loc_self[ind] - currently_position[ind]) + social_component_phig * r_g * (best_loc_social - currently_position[ind])
             currently_position[ind] = numpy.array(currently_position[ind]) + numpy.array(velocity[ind])
             if func(currently_position[ind]) < func(best_loc_self[ind]):
                 best_loc_self[ind] = currently_position[ind]
