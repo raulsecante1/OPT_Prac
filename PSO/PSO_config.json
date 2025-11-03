@@ -1,0 +1,292 @@
+{
+  "parameter_sets": [
+    {
+      "set_name": "config_2_40_1",
+      "description": "PSO parameters for 2D problem with 40 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 2,
+        "fitness_evaluations": 40,
+        "omega": 0.3925,
+        "phi_p": 2.5586,
+        "phi_g": 1.3358,
+        "swarm_size": 25
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_2_40_2",
+      "description": "PSO parameters for 2D problem with 40 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 2,
+        "fitness_evaluations": 40,
+        "omega": -0.434,
+        "phi_p": -0.6504,
+        "phi_g": 2.2073,
+        "swarm_size": 29
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_2_4000_1",
+      "description": "PSO parameters for 2D problem with 4000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 2,
+        "fitness_evaluations": 4000,
+        "omega": 0.4091,
+        "phi_p": 2.1304,
+        "phi_g": 1.0575,
+        "swarm_size": 156
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_2_4000_2",
+      "description": "PSO parameters for 2D problem with 4000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 2,
+        "fitness_evaluations": 4000,
+        "omega": -0.2887,
+        "phi_p": 0.4862,
+        "phi_g": 2.5067,
+        "swarm_size": 237
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_5_1000_1",
+      "description": "PSO parameters for 5D problem with 1000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 5,
+        "fitness_evaluations": 1000,
+        "omega": -0.3595,
+        "phi_p": -0.7238,
+        "phi_g": 2.0289,
+        "swarm_size": 63
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_5_1000_2",
+      "description": "PSO parameters for 5D problem with 1000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 5,
+        "fitness_evaluations": 1000,
+        "omega": -0.1832,
+        "phi_p": 0.5287,
+        "phi_g": 3.1913,
+        "swarm_size": 47
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_5_10000_1",
+      "description": "PSO parameters for 5D problem with 10000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 5,
+        "fitness_evaluations": 10000,
+        "omega": -0.3669,
+        "phi_p": -0.1027,
+        "phi_g": 3.3657,
+        "swarm_size": 223
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_5_10000_2",
+      "description": "PSO parameters for 5D problem with 10000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 5,
+        "fitness_evaluations": 10000,
+        "omega": 0.5069,
+        "phi_p": 2.5524,
+        "phi_g": 1.0056,
+        "swarm_size": 203
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_10_2000_1",
+      "description": "PSO parameters for 10D problem with 2000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 10,
+        "fitness_evaluations": 2000,
+        "omega": 0.6571,
+        "phi_p": 1.6319,
+        "phi_g": 0.6239,
+        "swarm_size": 63
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_10_2000_2",
+      "description": "PSO parameters for 10D problem with 2000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 10,
+        "fitness_evaluations": 2000,
+        "omega": -0.2134,
+        "phi_p": -0.3344,
+        "phi_g": 2.3259,
+        "swarm_size": 204
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_10_20000_1",
+      "description": "PSO parameters for 10D problem with 20000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 10,
+        "fitness_evaluations": 20000,
+        "omega": -0.3488,
+        "phi_p": -0.2476,
+        "phi_g": 4.8976,
+        "swarm_size": 53
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_20_40000_1",
+      "description": "PSO parameters for 20D problem with 40000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 20,
+        "fitness_evaluations": 40000,
+        "omega": -0.4438,
+        "phi_p": -0.2699,
+        "phi_g": 3.3950,
+        "swarm_size": 69
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_20_400000_1",
+      "description": "PSO parameters for 20D problem with 400000 fitness evaluations",
+      "pso_params": {
+        "problem_dimension": 20,
+        "fitness_evaluations": 400000,
+        "omega": -0.3236,
+        "phi_p": -0.1136,
+        "phi_g": 3.9789,
+        "swarm_size": 149
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_20_400000_2",
+      "description": "PSO parameters for 20D problem with 400000 fitness evaluations",
+      "pso_params": {
+        "problem dimension": 20,
+        "fitness evaluations": 400000,
+        "omega": -0.4736,
+        "phi_p": -0.9700,
+        "phi_g": 3.7904,
+        "swarm_size": 60
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_20_400000_2",
+      "description": "PSO parameters for 20D problem with 400000 fitness evaluations",
+      "pso_params": {
+        "problem dimension": 20,
+        "fitness evaluations": 400000,
+        "omega": -0.3499,
+        "phi_p": -0.0513,
+        "phi_g": 4.9087,
+        "swarm_size": 256
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_30_600000_1",
+      "description": "PSO parameters for 30D problem with 600000 fitness evaluations",
+      "pso_params": {
+        "problem dimension": 30,
+        "fitness evaluations": 600000,
+        "omega": -0.6031,
+        "phi_p": -0.6485,
+        "phi_g": 2.6475,
+        "swarm_size": 95
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_50_100000_1",
+      "description": "PSO parameters for 50D problem with 100000 fitness evaluations",
+      "pso_params": {
+        "problem dimension": 50,
+        "fitness evaluations": 100000,
+        "omega": -0.2256,
+        "phi_p": -0.1564,
+        "phi_g": 3.8876,
+        "swarm_size": 106
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    },
+    {
+      "set_name": "config_100_200000_1",
+      "description": "PSO parameters for 100D problem with 200000 fitness evaluations",
+      "pso_params": {
+        "problem dimension": 100,
+        "fitness evaluations": 200000,
+        "omega": -0.2089,
+        "phi_p": -0.0787,
+        "phi_g": 3.7637,
+        "swarm_size": 161
+      },
+      "performance_metrics": {
+        "convergence_speed": "NA",
+        "exploration_level": "NA"
+      }
+    }
+  ]
+}
