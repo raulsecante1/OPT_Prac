@@ -1,0 +1,75 @@
+# Implementation of algoritm PSO
+# supposing that the function is given like f(x1,x2,...) = y
+
+import random
+import numpy
+import PSO_config
+
+inicial = []  # corresponde inicio parameters for the function
+
+iterations = {"Academic_Toy_Problems": random.randint(50,200),
+              "Engineering_Design_Problems": random.randint(200,1000),
+              "Hyperparameter_Tuning_for_Machine_Learning": random.randint(100, 500),
+              "Neural_Network_Weight_Training": random.randint(1000, 2500)
+             }  #use table to get iteration instead
+
+#Problem Dimensions, Fitness Evaluations, S, omiga, phi_p, phi_g
+table = [[2, 40, 25, 0.3925, 2.5586, 1.3358],
+         [2, 40, 29, -0.434, -0.6504, 2.2073],
+         [2, 4000, 156, 0.4091, 2.1304, 1.0575],
+         [2, 4000, 237, -0.2887, 0.4862, 2.5067],
+         [5, 1000, 63, -0.3595, -0.7238, 2.0289],
+         [5, 1000, 47, -0.1832, 0.5287, 3.1913],
+         [5, 10000, 223, -0.3669, -0.1027, 3.3657],
+         [5, 10000, 203, 0.5069, 2.5524, 1.0056],
+         [10, 2000, 63, 0.6571, 1.6319, 0.6239],
+         [10, 2000, 204, -0.2134, -0.3344, 2.3259],
+         [10, 20000, 53, -0.3488, -0.2476, 4.8976],
+         [20, 40000, 69, -0.4438, -0.2699, 3.3950],
+         [20, 400000, 149, -0.3236, -0.1136, 3.9789],
+         []]
+
+
+def func():
+    '''
+    The function to optimize
+    Args:
+          x
+    Returns:
+          y
+    '''
+    pass
+
+def main_PSO():
+    '''
+    The main part of the PSO optimization
+    '''
+
+    iteration = iterations["Academic_Toy_Problems"]  # how many iterations for one PSO run
+    
+    r_p = random.uniform(0,1)
+    r_g = random.uniform(0,1)
+
+    inertia_omiga = 1
+    cognitive_component_phip = 1
+    social_component_phig = 1
+    best_loc_self = inicial
+    best_loc_social = inicial
+
+    k = random.uniform(0.1, 0.2)
+    upper_bound = 1
+    lower_bound = -1
+    velocity =  random.uniform(-k * (upper_bound - lower_bound), + k * (upper_bound - lower_bound))
+    currently_position = inicial
+
+    for i in range(iteration):
+        velocity = velocity * inertia_omiga + cognitive_component_phip * r_p * (best_loc_self - currently_position) + social_component_phig * r_g * (best_loc_social - currently_position)
+        currently_position = numpy.array(currently_position) + numpy.array(velocity)
+        if func(currently_position) < func(best_loc_self):
+            best_loc_self = currently_position
+        if func(currently_position) < func(best_loc_social):
+            best_loc_social = currently_position
+    
+    return (currently_position, best_loc_social, best_loc_self, func(best_loc_social))
+        
+
