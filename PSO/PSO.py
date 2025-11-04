@@ -4,8 +4,9 @@
 import random
 import numpy
 import json
+import math
 
-inicial = []  # corresponde inicio parameters for the function
+inicial_a = []  # corresponde inicio parameters for the function
 
 iterations = {"Academic_Toy_Problems": random.randint(50,200),
               "Engineering_Design_Problems": random.randint(200,1000),
@@ -29,7 +30,7 @@ table = [[2, 40, 25, 0.3925, 2.5586, 1.3358],
          [20, 400000, 149, -0.3236, -0.1136, 3.9789]]
 
 
-def func():
+def func_a():
     '''
     The function to optimize
     Args:
@@ -38,6 +39,10 @@ def func():
           y
     '''
     pass
+
+inicial = [0, 0]  # corresponde inicio parameters for the function
+def func(x1, x2):
+    return 20 + (x1**2 - 10 * math.cos(2 * math.pi * x1)) + (x2 ** 2 - 10 * math.cos(2 * math.pi * x2))
 
 def main_PSO():
     '''
@@ -74,11 +79,11 @@ def main_PSO():
         for ind in range(swarm_size):
             velocity[ind] = velocity[ind] * inertia_omega + cognitive_component_phip * r_p * (best_loc_self[ind] - currently_position[ind]) + social_component_phig * r_g * (best_loc_social - currently_position[ind])
             currently_position[ind] = numpy.array(currently_position[ind]) + numpy.array(velocity[ind])
-            if func(currently_position[ind]) < func(best_loc_self[ind]):
+            if func(*currently_position[ind]) < func(*best_loc_self[ind]):
                 best_loc_self[ind] = currently_position[ind]
-            if func(currently_position[ind]) < func(best_loc_social):
+            if func(*currently_position[ind]) < func(*best_loc_social):
                 best_loc_social = currently_position[ind]
 
-    return 0
+    return (best_loc_social, func(*best_loc_social))
         
 
