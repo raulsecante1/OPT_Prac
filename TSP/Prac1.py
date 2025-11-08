@@ -5,6 +5,9 @@ import math
 readFile("a280.tsp", 7)
 readFile("ali535.tsp", 8)
 readFile("att48.tsp", 7)
+readFile("berlin52.tsp",7)
+readFile("nrw1379.tsp",7)
+readFile("sim6.txt", 7)
 '''
 
 def readFile(fie, n, debug= False):
