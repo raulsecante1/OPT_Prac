@@ -5,9 +5,12 @@ import json
 supposing taht the data is given at the format of [[peso,valor],...,[peso,valor]]
 '''
 
-# 269 879 100000 2_10000_1000_1 3_10000_1000_1
+# f1_l_d_kp_10_269
+# f8_l_d_kp_23_10000
+# knapPI_3_100_1000_1
+# knapPI_3_200_1000_1
 
-ruta = r"C:\Users\usuario_local\Downloads\269.json"
+ruta = r".\ej\knapPI_3_200_1000_1.json"
 
 epsilon = 0.6
 
@@ -174,3 +177,4 @@ if __name__ == "__main__":
     #result = FPTAS_mochila.segun_capacidad(data, capacidad, epsilon)
     result = pd_main_peso(data, capacidad, epsilon)
     print(result)
+
