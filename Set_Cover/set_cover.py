@@ -83,7 +83,6 @@ if __name__ == "__main__":
         cost_range=(5, 200),
         #seed=42  # for reproducibility
     )
-    print(coleccion)
     while set(cubierta) != set(sett):
         if (debug): print("into a new loop with cubierta =", cubierta) 
         coste = [math.inf for _ in range(len(coleccion))]
@@ -115,3 +114,4 @@ if __name__ == "__main__":
         print("la solucion es ", solucion, "con el coste de ",total_cost)
 
         
+
