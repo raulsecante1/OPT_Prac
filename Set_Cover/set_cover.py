@@ -5,10 +5,6 @@
 
 
 
-# debug mode is on !!
-
-
-
 import math
 import ste_cover_ej
 import random
@@ -47,15 +43,17 @@ coleccion = [
     ["x10","x30","x40","x50","x20", 9],
 ]
 
-'''
-sett = ["a", "b", "c", "d", "e", "f", "g"]
-coleccion = [["a","b", 5],
-             ["a", "c", "e", 9],
-             ["f", "g", 4],
-             ["a", "e", "f", 7],
-             ["d", "g", 3],
-             ["b", "d", "e", 12]]
-'''
+def read_file(path):
+    '''
+    function that read the data file
+    Args:
+          path(str): path to the file
+    Return:
+          sett(list):
+          coleccion(list):
+    '''
+    with open(path, "r") as fl:
+        pass
 
 cubierta = []
 
@@ -80,12 +78,12 @@ if __name__ == "__main__":
     solucion = []
     total_cost = 0
     sett, coleccion = ste_cover_ej.generate_set_cover_instance(
-        n_elements=1000,
-        n_subsets=250,
-        subset_size_range=(5, 15),
+        n_elements=160,
+        n_subsets=1000,
         cost_range=(5, 200),
-        seed=42  # for reproducibility
+        #seed=42  # for reproducibility
     )
+    print(coleccion)
     while set(cubierta) != set(sett):
         if (debug): print("into a new loop with cubierta =", cubierta) 
         coste = [math.inf for _ in range(len(coleccion))]
@@ -101,13 +99,19 @@ if __name__ == "__main__":
             if minimo > coste[index]:
                 minimo = coste[index]
                 ind = index
-        for elem in coleccion[ind][:-1]:
-            if elem not in cubierta:
-                cubierta.append(elem)
+        try:
+            for elem in coleccion[ind][:-1]:
+                if elem not in cubierta:
+                    cubierta.append(elem)
+        except IndexError:
+            print("este problema no es solucionable")
+            solucion = []
+            break
         if (debug): print("the cubierta is now: ", cubierta)
         solucion.append(coleccion[ind][:-1])
         total_cost += coleccion[ind][-1]
         coleccion.pop(ind)
-    print("la solucion es ", solucion, "con el coste de ",total_cost)
+    if solucion:
+        print("la solucion es ", solucion, "con el coste de ",total_cost)
 
         
