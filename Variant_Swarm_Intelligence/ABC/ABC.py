@@ -3,10 +3,10 @@
 
 import numpy
 import random
+import copy
 
 '''
-inicial_template = [[x1_1, x1_2, x1_3,...],...,[xn_1, xn_2, xn_3,...]]   corresponde inicio parameters for the function
-def func_template(x1, x2,...):
+def func_template(x1, x2, ...):
     
     The function to optimize
     Args:
@@ -17,6 +17,16 @@ def func_template(x1, x2,...):
     return func(x1, x2, ...)
 '''
 
+def func(x1, x2, ...):
+    '''
+    The function to optimize
+    Args:
+          x
+    Returns:
+          y
+    '''
+    return func(x1, x2, ...)
+
 def ABC_main():
     '''
     The main part of the ABC optimization:
@@ -25,17 +35,35 @@ def ABC_main():
 
         REPEAT 
 
-        Employed Bees Phase
+            Employed Bees Phase
 
-        Onlooker Bees Phase
+            Onlooker Bees Phase
 
-        Scout Bees Phase
+            Scout Bees Phase
 
-        Memorize the best solution achieved so far
+            Memorize the best solution achieved so far
 
-        UNTIL(Cycle=Maximum Cycle Number or a Maximum CPU time)
+            UNTIL(Cycle=Maximum Cycle Number or a Maximum CPU time)
 
         
     '''
-    dimension = n
+    iteration = n_it
+    dimension = n_d
+    n_bee = n_b
+    domain_x = list_d_X #dominio de cada variable [[x_1_min, x_1_max],...]
+    sol_swarm = [[0 for _ in range(dimension)] for _ in range(n_bee)]
+    new_cand_sol_v = [[0 for _ in range(dimension)] for _ in range(n_bee)]
 
+    for i in range(n_bee):  #Initialization
+        for j in range(dimension):
+            sol_swarm[i][j] = domain_x[j][0] + random.uniform(0,1) * (domain_x[1] - domain_x[0])
+    
+    for _ in range(iteration):
+        for i in range(n_bee):  #Employed Bees Phase
+            for j in range(dimension):
+                k = random.randint(1, n_d)
+                new_cand_sol_v[i][j] = sol_swarm[i][j] + random.uniform(0,1) * (sol_swarm[i][j] - sol_swarm[k][j])
+            if func(*new_cand_sol_v[i]) < func(*sol_swarm[i]):  #Update the bee or the solution
+                sol_swarm[i] = copy.deepcopy(new_cand_sol_v[i])
+
+        #Onlooker Bees Phase
