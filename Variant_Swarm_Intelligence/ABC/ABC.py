@@ -53,6 +53,8 @@ def ABC_main():
     domain_x = list_d_X #dominio de cada variable [[x_1_min, x_1_max],...]
     sol_swarm = [[0 for _ in range(dimension)] for _ in range(n_bee)]
     new_cand_sol_v = [[0 for _ in range(dimension)] for _ in range(n_bee)]
+    fit = [0 for _ in range(n_bee)]
+    selection_probability = [0 for _ in range(n_bee)]
 
     for i in range(n_bee):  #Initialization
         for j in range(dimension):
@@ -66,4 +68,14 @@ def ABC_main():
             if func(*new_cand_sol_v[i]) < func(*sol_swarm[i]):  #Update the bee or the solution
                 sol_swarm[i] = copy.deepcopy(new_cand_sol_v[i])
 
-        #Onlooker Bees Phase
+        for i in range(n_bee):  #Onlooker Bees Phase
+            fx = func(*sol_swarm)
+            if fx >= 0:
+                fit[i] = 1 / (1 + fx)
+            else:
+                fit[i] = 1 + numpy.abs(fx)
+        
+        fit_sum = sum(fit)
+        for i in range(n_bee):
+            selection_probability[i] = fit[i]/fit_sum
+
