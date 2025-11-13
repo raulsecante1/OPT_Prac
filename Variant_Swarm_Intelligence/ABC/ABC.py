@@ -1,5 +1,6 @@
 # Implementation of algoritm PSO
 # supposing that the function is given like f(x1,x2,...) = y
+# half employed bees half onlooker bees
 
 import numpy
 import random
@@ -17,15 +18,26 @@ def func_template(x1, x2, ...):
     return func(x1, x2, ...)
 '''
 
-def func(x1, x2, ...):
+
+#using Karaboga´s setting
+n_it = 500
+n_b = random.randint(10, 50)  #values recommended by Karaboga
+n_d = 100  # larger than 30
+n_li = 2 * n_d * n_b
+list_d_x = [[-600, 600] for _ in range(n_d)]
+def func(*args):
     '''
     The function to optimize
     Args:
-          x
+          args: the tuple of the (x1, x2, ...), which in this case should be dynamically depends on the ABC_main for testing convenience
     Returns:
           y
     '''
-    return func(x1, x2, ...)
+    x = numpy.array(args)
+    n = len(x)
+    sum_sq = numpy.sum(x**2) / 4000
+    prod_cos = numpy.prod(numpy.cos(x / numpy.sqrt(numpy.arange(1, n+1))))
+    return 1 + sum_sq - prod_cos
 
 def ABC_main():
     '''
@@ -45,13 +57,12 @@ def ABC_main():
 
             UNTIL(Cycle=Maximum Cycle Number or a Maximum CPU time)
 
-        
     '''
     iteration = n_it
     dimension = n_d
     n_bee = n_b
-    limit = n_li # or called abandonment criteria
-    domain_x = list_d_X #dominio de cada variable [[x_1_min, x_1_max],...]
+    limit = n_li # or called "abandonment criteria"
+    domain_x = list_d_x #dominio de cada variable [[x_1_min, x_1_max],...]
 
     sol_swarm = [[0 for _ in range(dimension)] for _ in range(n_bee)]
     new_cand_sol_v = [[0 for _ in range(dimension)] for _ in range(n_bee)]
@@ -115,3 +126,5 @@ def ABC_main():
                 best_fitness = aux_fit
 
     print(best_fitness, best_food_source)
+
+ABC_main()
