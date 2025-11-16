@@ -22,9 +22,9 @@ def func_template(x1, x2, ...):
 #using Karaboga´s setting
 n_it = 500
 n_b = random.randint(10, 50)  #values recommended by Karaboga
-n_d = 100  # larger than 30
-n_li = 2 * n_d * n_b
-list_d_x = [[-600, 600] for _ in range(n_d)]
+n_d = 10  # larger than 30 but the original version is too weak to handle high dimensional problem
+n_li = int(n_it/3)  #2 * n_d * n_b #abandoned as too large for high dimension
+list_d_x = [[-5, 5] for _ in range(n_d)]
 def func(*args):
     '''
     The function to optimize
@@ -79,7 +79,7 @@ def ABC_main():
         for i in range(n_bee):  #Employed Bees Phase
             for j in range(dimension):
                 k = random.randint(0, n_bee-1)
-                new_cand_sol_v[i][j] = sol_swarm[i][j] + random.uniform(-1,1) * (sol_swarm[i][j] - sol_swarm[k][j])
+                new_cand_sol_v[i][j] = numpy.clip(sol_swarm[i][j] + random.uniform(-1,1) * (sol_swarm[i][j] - sol_swarm[k][j]), domain_x[j][0], domain_x[j][1])  #i forgot to add boundarys at results
             if func(*new_cand_sol_v[i]) < func(*sol_swarm[i]):  #Update the bee or the solution
                 sol_swarm[i] = copy.deepcopy(new_cand_sol_v[i])
             else:
@@ -102,7 +102,7 @@ def ABC_main():
                 k = random.randint(0, n_bee - 1)
                 while k == i:
                     k = random.randint(0, n_bee - 1)
-                new_cand_sol_v[i][j] = sol_swarm[i][j] + random.uniform(-1,1) * (sol_swarm[i][j] - sol_swarm[k][j])
+                new_cand_sol_v[i][j] = numpy.clip(sol_swarm[i][j] + random.uniform(-1,1) * (sol_swarm[i][j] - sol_swarm[k][j]), domain_x[j][0], domain_x[j][1])  #i forgot to add boundarys at results
             if func(*new_cand_sol_v[i]) < func(*sol_swarm[i]):  #Update the bee or the solution
                 sol_swarm[i] = copy.deepcopy(new_cand_sol_v[i])
             else:
@@ -113,7 +113,7 @@ def ABC_main():
         for i in range(len(sol_swarm)):  #Scout Bees Phase
             if trial_bees[i] > limit:
                 for j in range(dimension):
-                    sol_swarm[i][j] = domain_x[j][0] + random.uniform(0,1) * (domain_x[j][1] - domain_x[j][0])
+                                    new_cand_sol_v[i][j] = numpy.clip(sol_swarm[i][j] + random.uniform(-1,1) * (sol_swarm[i][j] - sol_swarm[k][j]), domain_x[j][0], domain_x[j][1])  #i forgot to add boundarys at results
                 trial_bees[i] = 0
 
         best_food_source = copy.deepcopy(sol_swarm[0])
@@ -125,6 +125,6 @@ def ABC_main():
                 best_food_source = copy.deepcopy(sol)
                 best_fitness = aux_fit
 
-    print(best_fitness, best_food_source)
+    print(best_fitness, list(map(lambda x: float(x), best_food_source)))
 
 ABC_main()
