@@ -80,17 +80,15 @@ std::vector<int> random_binary_vector(int k) {
 }
 
 
-int fitness_function(const BipartiteGraph graph, const std::vector<int>& solution) {
+int fitness_function(const BipartiteGraph& graph, const std::vector<int>& solution) {
     /*
      * the fitness function f = C1 * V_in_solution + C2 * V_missing
      */
     int constant_C1 = 2;
     int constant_C2 = 1683;
     
-    int v_in_solution = 0;
+    int v_in_solution = std::accumulate(solution.begin(), solution.end(), 0);
     int v_missing = 0;
-
-    int V_in_solution = std::accumulate(solution.begin(), solution.end(), 0);
 
     for (const auto& edge : graph.edges) {
         int idx_u = edge.first - 1;
@@ -105,7 +103,7 @@ int fitness_function(const BipartiteGraph graph, const std::vector<int>& solutio
 }
 
 
-std::vector<std::vector<int>> dual_point_selection(const int population, const std::vector<std::vector<int>> parents) {
+std::vector<std::vector<int>> dual_point_selection(const int population, const std::vector<std::vector<int>>& parents) {
     /*
      * function that dose the 2 point selection till get enough population
      * Args:
@@ -158,7 +156,7 @@ std::vector<std::vector<int>> dual_point_selection(const int population, const s
 }
 
 
-void mutuation(const float posibility, std::vector<std::vector<int>> particles) {
+void mutuation(const float posibility, std::vector<std::vector<int>>& particles) {
     /*
      * the function that dose mutuation at every particle with a certain chance
      * Args:
@@ -184,7 +182,6 @@ void mutuation(const float posibility, std::vector<std::vector<int>> particles) 
         }
     }
 }
-
 
 
 int main(){
