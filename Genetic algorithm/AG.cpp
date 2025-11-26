@@ -211,24 +211,31 @@ int main(){
     
     //the chronosomes are like {0,1,1,0,1,...} 0 stands not taken, and 1 taken
 
-    std::vector<std::vector<int>> particles(                             // initialzing
-        population,                                                      //
-        std::vector<int>(num_vertex, 0)                                  //
-    );                                                                   //
-                                                                         //
-    for (int ind_ini = 0;ind_ini < population; ind_ini++){               //
-        particles[ind_ini] = random_binary_vector(num_vertex);           //
-    }                                                                    //
+    std::vector<std::vector<int>> child_particles(
+        population,
+        std::vector<int>(num_vertex, 0)
+    );
 
-    for (int ind_eva = 0;ind_eva < population; ind_eva++) {                    // evaluation
-        eva_list[ind_eva] = fitness_function(graph, particles[ind_eva]);       //
-    }                                                                          //
+    std::vector<std::vector<int>> parent_particles(                             // initialzing
+        population,                                                             //
+        std::vector<int>(num_vertex, 0)                                         //
+    );                                                                          //
+                                                                                //
+    for (int ind_ini = 0;ind_ini < population; ind_ini++){                      //
+        parent_particles[ind_ini] = random_binary_vector(num_vertex);           //
+    }                                                                           //
 
-    for (int ind_iter = 0; ind_iter < num_iteration; ind_iter++) {       // condition phase
+    for (int ind_eva = 0;ind_eva < population; ind_eva++) {                           // evaluation
+        eva_list[ind_eva] = fitness_function(graph, parent_particles[ind_eva]);       //
+    }                                                                                 //
+
+    for (int ind_iter = 0; ind_iter < num_iteration; ind_iter++) {                 // condition phase
  
-        particles = dual_point_selection(population, particles);                               // tourment selection and 2points crossover
+        child_particles = dual_point_selection(population, parent_particles);                               // tourment selection and 2points crossover
 
-        mutuation(0.01, particles);                                         // 1% mutuation
+        mutuation(0.01, child_particles);                                         // 1% mutuation
+
+        // 2 zones
     }
     
 
