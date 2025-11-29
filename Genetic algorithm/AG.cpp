@@ -20,9 +20,13 @@
 
 #include "omp.h"  //  OpenMp
 
+#include "chrono"  //  H-R clock
+
 std::string path = "D:/Project1/1.gr";
 
 bool read_file = true;
+
+bool debug = false;
 
 static std::mt19937 rng(std::random_device{}());
 
@@ -30,6 +34,14 @@ struct BipartiteGraph {
     int num_fix, num_fre, num_edge;
     std::vector<std::pair<int, int>> edges;
 };
+
+
+void print_particle(const std::vector<int>& v) {
+    for (int x : v) {
+        std::cout << x << " ";
+    }
+    std::cout << "\n";
+}
 
 
 BipartiteGraph read_bipartite_graph(const std::string& filename) {
@@ -84,7 +96,7 @@ int fitness_function(const BipartiteGraph& graph, const std::vector<int>& soluti
     /*
      * the fitness function f = C1 * V_in_solution + C2 * V_missing
      */
-    int constant_C1 = 2;
+    int constant_C1 = 1;
     int constant_C2 = 1683;
     
     int v_in_solution = std::accumulate(solution.begin(), solution.end(), 0);
@@ -103,24 +115,48 @@ int fitness_function(const BipartiteGraph& graph, const std::vector<int>& soluti
 }
 
 
-std::vector<std::vector<int>> dual_point_selection(const int population, const std::vector<std::vector<int>>& parents) {
+std::vector<std::vector<int>> dual_point_selection(const std::vector<std::vector<int>>& parents) {
     /*
-     * function that dose the 2 point selection till get enough population
+     * function that dose the 2 point crossover to get a double population
      * Args:
-     *      population(int): the desired population
      *      parents(std::vector<std::vector<int>>): the current generation that used to produce the next generation
      * Returns:
      *      particles(std::vector<std::vector<int>>): the next generation
      */
 
-    int new_population = 0;
+    int num_population = parents.size();
     int num_vertex = parents[0].size();
 
     std::vector<std::vector<int>> particles(
-        population,
+        num_population,
         std::vector<int>(num_vertex, 0)
     );
 
+    int dual_count = 0;
+
+//#pragma omp parallel for
+    for (int ind = 0; ind < num_population; ind+=2) {
+        if (debug)std::cout << "    dual run " << dual_count << "\n";
+        std::uniform_int_distribution<int> dist_two_point(0, num_vertex - 1);
+        int p1 = dist_two_point(rng);
+        int p2 = dist_two_point(rng);
+        if (p1 > p2) std::swap(p1, p2);
+
+        std::vector<int> child1 = parents[ind];
+        std::vector<int> child2 = parents[ind+1];
+
+        for (int i = p1; i <= p2; ++i) {
+            std::swap(child1[i], child2[i]);
+        }
+
+        particles[ind] = std::move(child1);
+        particles[ind + 1] = std::move(child2);
+
+        dual_count++;
+    }
+
+    return particles;
+/*
     while (new_population + 1 < population) {
         std::uniform_int_distribution<int> dist_parent(0, population - 1);
 
@@ -150,6 +186,40 @@ std::vector<std::vector<int>> dual_point_selection(const int population, const s
     if (new_population < population) {
         std::uniform_int_distribution<int> dist_parent(0, population - 1);
         particles[new_population] = parents[dist_parent(rng)];
+    }
+
+    return particles;
+*/
+}
+
+
+std::vector<std::vector<int>> torneo_selection(const std::vector<std::vector<int>>& current_generation, const BipartiteGraph graph) {
+    /*
+     * the function that do the tourment selection to get the relatively better genes from last iteration to pass to the next iteration
+     * Args:
+     *      current_generation(std::vector<std::vector<int>>): the current parents and children set
+     * Returns:
+     *      s
+     */
+
+    int num_population = current_generation.size() / 2;
+    int num_vertex = current_generation[0].size();
+    int eva_1, eva_2;
+
+    std::vector<std::vector<int>> particles(
+        num_population,
+        std::vector<int>(num_vertex, 0)
+    );
+
+    for (int ind = 0; ind < num_population; ind += 2) {
+        eva_1 = fitness_function(graph, current_generation[ind]);
+        eva_2 = fitness_function(graph, current_generation[ind + 1]);
+        if (eva_1 < eva_2) {
+            particles[ind/2] = current_generation[ind];
+        }
+        else {
+            particles[ind/2] = current_generation[ind+1];
+        }
     }
 
     return particles;
@@ -187,21 +257,24 @@ void mutuation(const float posibility, std::vector<std::vector<int>>& particles)
 int main(){
     //supposing that the inputs are [a,b,c,...] vertexs. [(a,b),(a,c),...] edges
 
+    auto start = std::chrono::high_resolution_clock::now(); //game start
+
     int num_vertex;
     int population;
     int constant_torneo = 2;  //tourment
     int num_iteration = 40;
+    long int iteration_count = 0;
 
     BipartiteGraph graph;
     
     if (read_file) {
         graph = read_bipartite_graph(path);
         num_vertex = graph.num_fix + graph.num_fre;
-        population = num_vertex * 5;
+        population = num_vertex * 4;
     }
     else {
-        num_vertex = 50;
-        population = 180;
+        num_vertex = 15;
+        population = 50;
     }
 
     std::vector<int> eva_list(population, 0);
@@ -212,6 +285,9 @@ int main(){
         population,
         std::vector<int>(num_vertex, 0)
     );
+
+    std::vector<std::vector<int>> combined_particles;
+    combined_particles.reserve(population * 2);
 
     std::vector<std::vector<int>> parent_particles(                             // initialzing
         population,                                                             //
@@ -228,12 +304,25 @@ int main(){
 
     for (int ind_iter = 0; ind_iter < num_iteration; ind_iter++) {                 // condition phase
  
-        child_particles = dual_point_selection(population, parent_particles);                               // tourment selection and 2points crossover
+        if (debug) std::cout << "iteration run " << iteration_count << "\n";
 
-        mutuation(0.01, child_particles);                                         // 1% mutuation
+        child_particles = dual_point_selection(parent_particles);                               // 2 points crossover
 
-        // 2 zones
+        mutuation(0.01f, child_particles);                                         // 1% mutuation
+
+        combined_particles.clear();                                                                               // 2 zones
+        combined_particles.insert(combined_particles.end(), parent_particles.begin(), parent_particles.end());    //
+        combined_particles.insert(combined_particles.end(), child_particles.begin(), child_particles.end());      //
+        parent_particles = torneo_selection(combined_particles, graph);
+
+        iteration_count++;
     }
-    
+
+    auto end = std::chrono::high_resolution_clock::now();  // das spiel ist aus
+    std::chrono::duration<double> elapsed = end - start;
+
+    print_particle(parent_particles[0]);
+
+    std::cout << "Elapsed time: " << elapsed.count() << " seconds\n";
 
 }
