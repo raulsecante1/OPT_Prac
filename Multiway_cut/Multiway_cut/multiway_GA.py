@@ -101,13 +101,13 @@ class MultiwayCutGA:
         return population[i] if fitnesses[i] > fitnesses[j] else population[j]
 
 
-    def run(self, generations=200):
+    def run(self, iteraations=200):
         pop = self.initialize_population()
 
         best_chrom = None
         best_cost = float("inf")
 
-        for gen in range(generations):
+        for _ in range(iteraations):
             fitness_vals = []
             costs = []
 
