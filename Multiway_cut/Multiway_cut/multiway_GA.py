@@ -82,8 +82,7 @@ class MultiwayCutGA:
              chrom(list):  chromosome represented as a list
         '''
         for i in range(self.n):
-            # terminals cannot mutate
-            if self.node_list[i] in self.terminal_labels:
+            if self.node_list[i] in self.terminal_labels:  # terminals cannot mutate
                 continue
             if random.random() < self.mutation_rate:
                 chrom[i] = random.randint(0, self.k - 1)
